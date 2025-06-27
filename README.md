@@ -8,7 +8,7 @@ It features a 10-question journey with colorful visuals, delayed answer options 
 ## 🔗 Live Demo
 
 You can view the deployed version here:  
-[Live Site on Netlify](https://.netlify.app)
+[Live Site on Netlify](https://react-quiz-project-patika.netlify.app)
 
 ## 🎥 Project Previews
 
