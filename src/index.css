@@ -1,0 +1,83 @@
+:root {
+  /* Base font and rendering settings */
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Light/Dark color theme support */
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);         /* Default text color in dark mode */
+  background-color: #242424;               /* Default background in dark mode */
+
+  /* Typography enhancements */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Link styling */
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2; /* Slightly darker on hover */
+}
+
+/* Basic body layout */
+body {
+  margin: 0;
+  display: flex;
+  place-items: center; /* Centers children both horizontally & vertically */
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+/* Main heading style */
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+/* Button base styling */
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+/* Button hover effect */
+button:hover {
+  border-color: #646cff;
+}
+
+/* Button focus accessibility */
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Light mode overrides based on user preference */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;               /* Text color for light mode */
+    background-color: #ffffff;    /* Background color for light mode */
+  }
+
+  a:hover {
+    color: #747bff;               /* Hover color for links in light mode */
+  }
+
+  button {
+    background-color: #f9f9f9;    /* Button background in light mode */
+  }
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/vite.svg" />
+    
+    <!-- Responsive viewport settings for mobile scaling -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Page title -->
+    <title>LUMI | Genel Kültür Testi</title>
+
+    <!-- Google Fonts (Inter family: 400, 600, 700 weights) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Global base styles (applied directly via internal CSS for immediate rendering) -->
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Inter', sans-serif;
+        background-color: #f8fafc; /* Light neutral background */
+      }
+
+      /* Fixed brand logo in top-left corner */
+      .lumi-logo {
+        position: fixed;
+        top: 20px;
+        left: 30px;
+        font-weight: 700;
+        font-size: 22px;
+        color: #4f46e5;
+        letter-spacing: 1px;
+        user-select: none;
+        z-index: 999; /* Ensure it stays above other elements */
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Persistent LUMI brand logo -->
+    <div class="lumi-logo">LUMI</div>
+
+    <!-- React root mount point -->
+    <div id="root"></div>
+
+    <!-- Vite-processed entry script for React app -->
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
