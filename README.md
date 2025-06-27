@@ -1,4 +1,4 @@
-# Question App - React Quiz Project
+# Question App - React Question Project
 
 Question App is a fun and interactive quiz game built with React + Vite as part of the Patika+ Frontend Projects.
 It features a 10-question journey with colorful visuals, delayed answer options for suspense, and a playful result screen to show how you did — all wrapped in a clean, responsive design.
@@ -8,7 +8,7 @@ It features a 10-question journey with colorful visuals, delayed answer options 
 ## 🔗 Live Demo
 
 You can view the deployed version here:  
-[Live Site on Netlify](https://react-quiz-project-patika.netlify.app)
+[Live Site on Netlify](https://react-question-project-patika.netlify.app)
 
 ## 🎥 Project Previews
 
