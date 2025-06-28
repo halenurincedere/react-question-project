@@ -19,7 +19,7 @@ You can view the deployed version here:
 ![Mobile Demo](public/gifs/Mobile.gif)
 
 ### 🎉 Confetti View 
-<img src="public/images/confetti.png" alt="Confetti View" width="720"/>
+![Confetti View](public/images/Confetti.png)
 ---
 
 ##  Project Features
