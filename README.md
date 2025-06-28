@@ -17,6 +17,9 @@ You can view the deployed version here:
 
 ### 📱 Mobile View  
 ![Mobile Demo](public/gifs/Mobile.gif)
+
+### 🎉 Confetti View 
+<img src="public/images/confetti.png" alt="Confetti View" width="720"/>
 ---
 
 ##  Project Features
@@ -30,11 +33,14 @@ You can view the deployed version here:
   - **Answer options revealed after 4 seconds**
   - Auto-skips unanswered questions (marked as blank)
 - **No going back** to previous questions (one-way flow).
-- **Result screen** shows:
-  - ✅ Correct answers
-  - ❌ Incorrect answers
-  - ⏳ Blank (unanswered) questions
-  - 🕐 Total elapsed time
+
++ **Result screen** shows (with color-coded answers):
+   - ✅ Correct answers
+   - ❌ Incorrect answers
+   - ⏳ Blank (unanswered) questions
+   - 🧠 Visual summary of each answer
+   - 🕐 Total elapsed time
+   
 - **Images protected** (no right-click, no drag, visual blur background).
 - Mobile-first styling and consistent design system.
 
@@ -108,7 +114,7 @@ npm run dev
 
 • Responsive & accessible layout
 
-• Deployed live with link in README ✅
+• Deployed live with link in README
 
 ---
 ## License

@@ -4,17 +4,16 @@ import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 import questions from "../data/questions";
 
-// ResultScreen component handles the summary view once the quiz is completed.
-// It calculates the user's score and displays stats including correct, wrong, and unanswered questions.
+// ResultScreen component displays the final results after the quiz is completed
 const ResultScreen = ({ answers, onRestart, elapsedTime }) => {
-  const { width, height } = useWindowSize(); // Fetch current window dimensions for Confetti
+  const { width, height } = useWindowSize(); // For responsive confetti effect
 
-  // Initialize result counters
+  // Counters for correct, incorrect and empty answers
   let correct = 0;
   let incorrect = 0;
   let empty = 0;
 
-  // Loop through user's answers and calculate result categories
+  // Evaluate each answer
   answers.forEach((answer, index) => {
     if (answer === null) {
       empty++;
@@ -25,9 +24,9 @@ const ResultScreen = ({ answers, onRestart, elapsedTime }) => {
     }
   });
 
-  const successRate = Math.round((correct / questions.length) * 100); // Convert to percentage
+  const successRate = Math.round((correct / questions.length) * 100); // Calculate success percentage
 
-  // Dynamically return message based on performance
+  // Personalized message based on performance
   const getMessage = () => {
     if (successRate === 100) return "🎯 Mükemmel! Tümünü doğru yaptın!";
     if (successRate >= 80) return "👏 Harika iş çıkardın!";
@@ -35,12 +34,13 @@ const ResultScreen = ({ answers, onRestart, elapsedTime }) => {
     return "💡 Haydi tekrar dene, gelişmeye devam!";
   };
 
-  // Local storage check for best score
+  // Retrieve and update highest score from local storage
   const [highScore, setHighScore] = useState(
     parseInt(localStorage.getItem("highScore")) || 0
   );
 
-  // Update high score if current score is better
+  const [showAnswers, setShowAnswers] = useState(false); // Toggle visibility of answer summary
+
   useEffect(() => {
     if (successRate > highScore) {
       localStorage.setItem("highScore", successRate);
@@ -50,7 +50,7 @@ const ResultScreen = ({ answers, onRestart, elapsedTime }) => {
 
   return (
     <div style={styles.container}>
-      {/* Confetti animation for high-performing users */}
+      {/* Show confetti if score is high */}
       {successRate >= 80 && <Confetti width={width} height={height} />}
 
       <motion.div
@@ -62,7 +62,7 @@ const ResultScreen = ({ answers, onRestart, elapsedTime }) => {
         <h2 style={styles.title}>🎉 Test Tamamlandı!</h2>
         <h3 style={styles.message}>👏 {getMessage()}</h3>
 
-        {/* Quiz summary details */}
+        {/* Basic statistics */}
         <p style={styles.text}>📊 Toplam Soru: {questions.length}</p>
         <p style={styles.text}>⏱️ Geçen Süre: {elapsedTime} saniye</p>
         <p style={styles.correct}>✅ Doğru: {correct}</p>
@@ -71,21 +71,124 @@ const ResultScreen = ({ answers, onRestart, elapsedTime }) => {
         <p style={styles.text}>🎯 Başarı Oranı: {successRate}%</p>
         <p style={styles.text}>🏆 En Yüksek Başarı Oranı: {highScore}%</p>
 
-        {/* Restart button */}
-        <button
-          style={styles.button}
-          onClick={onRestart}
-          onMouseOver={(e) => (e.target.style.backgroundColor = "#4338ca")}
-          onMouseOut={(e) => (e.target.style.backgroundColor = "#4f46e5")}
-        >
-          Ana Sayfaya Dön
-        </button>
+        {/* Control buttons */}
+        <div style={styles.buttonRow}>
+          <button
+            style={styles.button}
+            onClick={() => setShowAnswers(!showAnswers)}
+          >
+            {showAnswers ? "Cevapları Gizle" : "Cevapları Göster"}
+          </button>
+
+          <button
+            style={styles.button}
+            onClick={onRestart}
+            onMouseOver={(e) => (e.target.style.backgroundColor = "#4338ca")}
+            onMouseOut={(e) => (e.target.style.backgroundColor = "#4f46e5")}
+          >
+            Ana Sayfaya Dön
+          </button>
+        </div>
+
+        {/* Answer summary section */}
+        {showAnswers && (
+          <>
+            <h3 style={{ ...styles.message, marginTop: 30 }}>
+              📋 Cevapların Özeti:
+            </h3>
+            {questions.map((question, index) => {
+              const userAnswer = answers[index];
+              return (
+                <div
+                  key={index}
+                  style={{ textAlign: "left", marginTop: 20 }}
+                >
+                  <p style={{ fontWeight: "600", fontSize: 16 }}>
+                    {index + 1}. {question.question}
+                  </p>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexWrap: "wrap",
+                      gap: "10px",
+                      marginTop: "6px",
+                    }}
+                  >
+                    {question.options.map((option, optIndex) => {
+                      const isCorrect = option === question.answer;
+                      const isUserAnswer = option === userAnswer;
+
+                      let bgColor = "#e5e7eb";
+                      let textColor = "#1f2937";
+
+                      if (userAnswer === null) {
+                        if (isCorrect) {
+                          bgColor = "#4ade80";
+                          textColor = "white";
+                        }
+                      } else {
+                        if (isCorrect && isUserAnswer) {
+                          bgColor = "#4ade80";
+                          textColor = "white";
+                        } else if (!isCorrect && isUserAnswer) {
+                          bgColor = "#f87171";
+                          textColor = "white";
+                        } else if (isCorrect) {
+                          bgColor = "#4ade80";
+                          textColor = "white";
+                        }
+                      }
+
+                      return (
+                        <div
+                          key={optIndex}
+                          style={{
+                            backgroundColor: bgColor,
+                            color: textColor,
+                            padding: "6px 12px",
+                            borderRadius: "8px",
+                            fontSize: "14px",
+                            fontWeight: "500",
+                          }}
+                        >
+                          {option}
+                        </div>
+                      );
+                    })}
+
+                    {/* Display empty warning if question is unanswered */}
+                    {userAnswer === null && (
+                      <div
+                        style={{
+                          backgroundColor: "#facc15",
+                          color: "#111827",
+                          padding: "6px 12px",
+                          borderRadius: "8px",
+                          fontSize: "14px",
+                          fontWeight: "500",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "6px",
+                        }}
+                      >
+                        <span style={{ color: "#b91c1c", fontWeight: "700" }}>
+                          ❓
+                        </span>{" "}
+                        Boş Bıraktın
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </>
+        )}
       </motion.div>
     </div>
   );
 };
 
-// Inline styling for the result screen component
+// Inline styles used for layout and theming
 const styles = {
   container: {
     display: "flex",
@@ -149,13 +252,19 @@ const styles = {
   button: {
     fontSize: "16px",
     padding: "10px 20px",
-    marginTop: "20px",
     cursor: "pointer",
     backgroundColor: "#4f46e5",
     color: "white",
     border: "none",
-    borderRadius: "8px",
+    borderRadius: "10px",
     transition: "all 0.3s ease",
+  },
+  buttonRow: {
+    display: "flex",
+    justifyContent: "center",
+    gap: "15px",
+    marginTop: "30px",
+    flexWrap: "wrap",
   },
 };
 
